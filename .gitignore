@@ -1,0 +1,126 @@
+## General
+*.swp
+*.swo
+*~
+.DS_Store
+*.orig
+Thumbs.db
+*.user
+*.suo
+*.userprefs
+
+## IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+.vs/
+*.sw?
+
+## Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+## TypeScript
+*.js.map
+*.js
+!jest.config.js
+
+## Testing
+coverage/
+.nyc_output/
+
+## Build
+dist/
+build/
+out/
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.min.*
+
+## .NET
+*.nupkg
+packages/
+artifacts/
+*.dotCover
+*.cache
+
+## React
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+## Debug
+*.ilk
+*.pdb
+
+## Azure
+*.pfx
+*.publishsettings
+
+## MSBuild
+*.msi
+*.msp
+*.msm
+
+## Windows
+[Tt]humbs.db
+
+## Mac
+._*
+
+## Visual Studio
+*.sln.iml
+*.csproj.user
+*.csproj.*.user
+*.fsproj.user
+*.fsproj.*.user
+*.vbproj.user
+*.vbproj.*.user
+
+## Rider
+.idea/
+*.sln.iml
+
+## NuGet
+.nuget/
+NuGet.exe
+NuGet.Config
+
+## Azure Functions
+func.exe
+
+## Coverage
+coverage/
+
+## Logs
+*.log
+
+## Visual Studio Code
+.history/
+
+## ESLint
+.eslintcache
+
+## Babel
+.babelcache
+
+## Parcel
+.cache/
+.parcel-cache/
+
+## Next.js
+.next/
+
+## Storybook
+.storybook/
