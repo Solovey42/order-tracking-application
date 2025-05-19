@@ -11,6 +11,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDatabase(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    var clientUrl = builder.Configuration.GetSection("Client:Url").Value;
+
+    if (string.IsNullOrEmpty(clientUrl))
+    {
+        throw new ArgumentException("Client URL is not configured");
+    }
+
+    options.AddPolicy(
+        "client",
+        policy =>
+        {
+            policy.WithOrigins(clientUrl).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+        }
+    );
+});
+
 // TODO add IServiceCollection extension method for adding services
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
@@ -33,6 +51,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("client");
 
 app.UseAuthorization();
 

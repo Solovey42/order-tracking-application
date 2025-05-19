@@ -6,7 +6,7 @@ namespace OrderTracking.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class OrderController(IOrderService orderService) : ControllerBase
+    public class OrdersController(IOrderService orderService) : ControllerBase
     {
         [HttpGet]
         public async Task<IEnumerable<OrderDto>> GetAllOrders(CancellationToken cancellationToken)
