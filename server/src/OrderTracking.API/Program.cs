@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OrderTracking.API.Middlewares;
 using OrderTracking.Application.Interfaces;
 using OrderTracking.Application.Services;
 using OrderTracking.Infrastructure;
@@ -35,8 +36,8 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 
-// Call migrate for create the database if it doesn't exist
-// This code is here so that you don't have to check it every time you create a context
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -48,6 +49,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    builder.Environment.EnvironmentName = Environments.Development;
 }
 
 app.UseHttpsRedirection();

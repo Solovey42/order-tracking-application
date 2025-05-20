@@ -8,3 +8,13 @@ export const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      const errorMessage = error.response.data?.message || error.response.data?.error;
+      return Promise.reject(new Error(errorMessage));
+    }
+  }
+);

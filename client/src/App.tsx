@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { store } from './store/store';
 import Orders from './pages/Orders';
 import OrderDetails from './pages/OrderDetails';
+import CreateOrder from './pages/CreateOrder';
 import Layout from './components/Layout';
 
 const theme = createTheme({
@@ -22,6 +23,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Orders />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/orders/create" element={<CreateOrder />} />
               <Route path="/orders/:orderId" element={<OrderDetails />} />
             </Routes>
           </Layout>

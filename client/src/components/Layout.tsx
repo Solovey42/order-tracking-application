@@ -13,9 +13,7 @@ const Layout = ({ children }: LayoutProps) => {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
-        width: '100vw',
-        margin: 0,
-        padding: 0,
+        width: '100%',
         backgroundColor: '#f5f5f5'
       }}
     >
@@ -29,38 +27,19 @@ const Layout = ({ children }: LayoutProps) => {
           flex: 1,
           width: '100%',
           display: 'flex',
-          padding: 0,
-          margin: 0
+          flexDirection: 'column'
         }}
       >
         <Container
-          maxWidth="md"
+          maxWidth={false}
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
             flex: 1,
             py: 4,
-            px: 2,
-            margin: 0,
-            width: '100%',
-            maxWidth: '100% !important',
+            px: { xs: 2, sm: 3 },
+            maxWidth: '100%'
           }}
         >
-          <Box
-            sx={{
-              flex: 1,
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              bgcolor: 'background.paper',
-              boxShadow: 3,
-              borderRadius: 2,
-              p: 3,
-              margin: 0
-            }}
-          >
-            {children}
-          </Box>
+          {children}
         </Container>
       </Box>
       

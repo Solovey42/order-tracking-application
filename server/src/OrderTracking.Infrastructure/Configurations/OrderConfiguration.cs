@@ -9,8 +9,11 @@ namespace OrderTracking.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.HasKey(o => o.Id);
+
             builder.Property(o => o.OrderNumber).IsRequired().HasMaxLength(50);
             builder.Property(o => o.Description).HasMaxLength(1000);
+
+            builder.HasIndex(o => o.OrderNumber).IsUnique();
         }
     }
 }

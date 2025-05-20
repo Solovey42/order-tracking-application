@@ -13,5 +13,30 @@ namespace OrderTracking.API.Controllers
         {
             return await orderService.GetAllOrders(cancellationToken);
         }
+
+        [HttpGet("{orderId:guid}")]
+        public async Task<OrderDto> GetOrderById(Guid orderId, CancellationToken cancellationToken)
+        {
+            return await orderService.GetOrderById(orderId, cancellationToken);
+        }
+
+        [HttpPost]
+        public async Task<Guid> CreateOrder(
+            [FromBody] CreateOrderDto order,
+            CancellationToken cancellationToken
+        )
+        {
+            return await orderService.CreateOrder(order, cancellationToken);
+        }
+
+        [HttpPatch("{orderId:guid}")]
+        public async Task UpdateOrderStatus(
+            Guid orderId,
+            [FromBody] UpdateOrderDto order,
+            CancellationToken cancellationToken
+        )
+        {
+            await orderService.UpdateStatus(orderId, order, cancellationToken);
+        }
     }
 }

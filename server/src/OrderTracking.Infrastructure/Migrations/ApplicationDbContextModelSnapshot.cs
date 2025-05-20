@@ -48,6 +48,9 @@ namespace OrderTracking.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OrderNumber")
+                        .IsUnique();
+
                     b.ToTable("Orders");
                 });
 #pragma warning restore 612, 618
