@@ -1,11 +1,15 @@
 ﻿using OrderTracking.Application.DTOs;
+using OrderTracking.Application.Events;
 using OrderTracking.Application.Interfaces;
 using OrderTracking.Domain.Entities;
 using OrderTracking.Domain.Enums;
 
 namespace OrderTracking.Application.Services
 {
-    public class OrderService(IOrderRepository orderRepository) : IOrderService
+    public class OrderService(
+        IOrderRepository orderRepository,
+        IProducerService<OrderStatusMessage> producerService
+    ) : IOrderService
     {
         public async Task<IEnumerable<OrderDto>> GetAllOrders(CancellationToken cancellationToken)
         {
@@ -78,6 +82,18 @@ namespace OrderTracking.Application.Services
             }
 
             await orderRepository.UpdateStatus(orderId, orderDto.Status, cancellationToken);
+
+            await producerService.ProduceAsync(
+                "order-status-changed",
+                order.Id,
+                new OrderStatusMessage(
+                    order.Id,
+                    order.OrderNumber,
+                    orderDto.Status,
+                    DateTime.UtcNow
+                ),
+                cancellationToken
+            );
         }
 
         private static bool IsValidStatusTransition(OrderStatus current, OrderStatus next)

@@ -61,12 +61,23 @@ export const orderSlice = createSlice({
   reducers: {
     setSelectedOrder: (state, action: PayloadAction<Order | null>) => {
       state.selectedOrder = action.payload;
+    },
+    setOrderStatus: (state, action: PayloadAction<{ orderId: string; status: number }>) => {
+      const { orderId, status } = action.payload;
+      const orderIndex = state.ordersList.findIndex(o => o.id === orderId);
+      if (orderIndex !== -1) {
+        state.ordersList[orderIndex]!.status = status;
+      }
+      if (state.selectedOrder && state.selectedOrder.id === orderId) {
+        state.selectedOrder.status = status;
+      }
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrders.fulfilled, (state, action) => {
         state.ordersList = action.payload;
+        state.selectedOrder = null;
         state.loading = false;
       })
       .addCase(fetchOrderById.fulfilled, (state, action) => {
@@ -97,7 +108,6 @@ export const orderSlice = createSlice({
         ),
         (state) => {
           state.loading = true;
-          state.selectedOrder = null;
           state.error = null;
         }
       )
@@ -116,6 +126,6 @@ export const orderSlice = createSlice({
   }
 });
 
-export const { setSelectedOrder } = orderSlice.actions;
+export const { setSelectedOrder, setOrderStatus } = orderSlice.actions;
 
 export default orderSlice.reducer;

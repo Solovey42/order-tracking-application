@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OrderTracking.API;
 using OrderTracking.API.Middlewares;
-using OrderTracking.Application.Interfaces;
-using OrderTracking.Application.Services;
 using OrderTracking.Infrastructure;
-using OrderTracking.Infrastructure.Repositories;
+using OrderTracking.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDatabase(builder.Configuration);
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddServices();
 
 builder.Services.AddCors(options =>
 {
@@ -29,10 +29,6 @@ builder.Services.AddCors(options =>
         }
     );
 });
-
-// TODO add IServiceCollection extension method for adding services
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 
@@ -59,5 +55,7 @@ app.UseCors("client");
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<OrderHub>("/orderHub");
 
 app.Run();

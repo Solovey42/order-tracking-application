@@ -5,12 +5,19 @@ import { fetchOrderById, updateOrderStatusThunk } from '../store/slices/orderSli
 import { Box, Chip, CircularProgress, Typography, Alert, Button, Stack, Container, Paper, Divider } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { getOrderStatusLabel, getStatusColor, OrderStatus } from '../utils/orderHelpers';
+import { useOrderStatusSubscription } from '../hooks/useOrderStatusSubscription';
 
 const OrderDetails = () => {
   const { orderId } = useParams<{ orderId: string }>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { selectedOrder: order, loading, error } = useAppSelector((state) => state.orders);
+
+  useOrderStatusSubscription(orderId);
+
+  const handleBackToList = () => {
+    navigate('/orders');
+  };
 
   useEffect(() => {
     if (orderId) {
@@ -45,7 +52,7 @@ const OrderDetails = () => {
       <Box sx={{ mb: 3 }}>
         <Button
           startIcon={<ArrowBackIcon />}
-          onClick={() => navigate('/orders')}
+          onClick={handleBackToList}
           sx={{ mb: 2 }}
         >
           Back to list

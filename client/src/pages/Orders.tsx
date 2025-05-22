@@ -19,6 +19,18 @@ import {
 import { Link } from 'react-router-dom';
 import { fetchOrders } from '../store/slices/orderSlice';
 import { getOrderStatusLabel, getStatusColor } from '../utils/orderHelpers';
+import { useOrderStatusSubscription } from '../hooks/useOrderStatusSubscription';
+
+interface OrderRowProps {
+  order: {
+    id: string;
+    orderNumber: string;
+    status: number;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
 
 const Orders = () => {
   const dispatch = useAppDispatch();
@@ -94,39 +106,7 @@ const Orders = () => {
               </TableHead>
               <TableBody>
                 {ordersList.map((order) => (
-                  <TableRow 
-                    key={order.id}
-                    hover
-                    sx={{ 
-                      '&:last-child td, &:last-child th': { border: 0 },
-                      cursor: 'pointer',
-                      '&:hover': { backgroundColor: 'action.hover' }
-                    }}
-                    component={Link}
-                    to={`/orders/${order.id}`}
-                  >
-                    <TableCell component="th" scope="row">
-                      #{order.orderNumber}
-                    </TableCell>
-                    <TableCell>
-                      <Chip 
-                        label={getOrderStatusLabel(order.status)} 
-                        color={getStatusColor(order.status)}
-                        size="small"
-                      />
-                    </TableCell>
-                    <TableCell sx={{ maxWidth: 0 }}>
-                      <Typography noWrap>
-                        {order.description}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      {new Date(order.createdAt).toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      {new Date(order.updatedAt).toLocaleString()}
-                    </TableCell>
-                  </TableRow>
+                  <OrderRow key={order.id} order={order} />
                 ))}
               </TableBody>
             </Table>
@@ -134,6 +114,45 @@ const Orders = () => {
         )}
       </Box>
     </Container>
+  );
+};
+
+const OrderRow = ({ order }: OrderRowProps) => {
+  useOrderStatusSubscription(order.id);
+  
+  return (
+    <TableRow 
+      hover
+      sx={{ 
+        '&:last-child td, &:last-child th': { border: 0 },
+        cursor: 'pointer',
+        '&:hover': { backgroundColor: 'action.hover' }
+      }}
+      component={Link}
+      to={`/orders/${order.id}`}
+    >
+      <TableCell component="th" scope="row">
+        #{order.orderNumber}
+      </TableCell>
+      <TableCell>
+        <Chip 
+          label={getOrderStatusLabel(order.status)} 
+          color={getStatusColor(order.status)}
+          size="small"
+        />
+      </TableCell>
+      <TableCell sx={{ maxWidth: 0 }}>
+        <Typography noWrap>
+          {order.description}
+        </Typography>
+      </TableCell>
+      <TableCell>
+        {new Date(order.createdAt).toLocaleString()}
+      </TableCell>
+      <TableCell>
+        {new Date(order.updatedAt).toLocaleString()}
+      </TableCell>
+    </TableRow>
   );
 };
 
