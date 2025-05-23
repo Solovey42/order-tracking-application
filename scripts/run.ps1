@@ -5,4 +5,4 @@ dotnet build ./src/OrderTracking.API/OrderTracking.API.csproj
 dotnet run --project ./src/OrderTracking.API/OrderTracking.API.csproj
 cd ../client
 npm install
-npm run dev
+npm run dev -- --port 5195
