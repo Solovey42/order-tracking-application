@@ -23,6 +23,10 @@ const CreateOrder = () => {
   const [isInvalid, setIsInvalid] = useState(false);
 
   const handleCreate = async () => {
+    if(!orderNumber.trim()){
+      setIsInvalid(true);
+      return
+    }
     await dispatch(createOrder({ orderNumber, description })).unwrap();
       navigate('/orders');
   };

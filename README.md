@@ -46,3 +46,5 @@
 
 Backend - https://localhost:7013
 Frontend - http://localhost:5173
+
+Порт на которм развернут фронтэнд должен быть указан в asppsetting.json Client.Url
