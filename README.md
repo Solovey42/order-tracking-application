@@ -47,5 +47,5 @@ chmod +x scripts/run.sh
 ./run.sh
 
 
-Backend - http://localhost:5173
+Backend - https://localhost:7013
 Frontend - http://localhost:5173
