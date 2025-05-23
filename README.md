@@ -45,6 +45,6 @@
 
 
 Backend - https://localhost:7013
-Frontend - http://localhost:5175
+Frontend - http://localhost:5195
 
 Если порт фронтэнда отличается нужно вставить ваш порт в asppsetting.json Client.Url
