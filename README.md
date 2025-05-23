@@ -43,7 +43,7 @@
 
 ###  Linux / macOS (Bash)
 
-chmod +x scripts/run.sh
+chmod +x ./run.sh
 ./run.sh
 
 
