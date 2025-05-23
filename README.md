@@ -39,12 +39,12 @@
 Перейдите в папку scripts и запустите скрипты в завиимости от ОС:
 ### Windows (PowerShell)
 
-.\run.ps1
+`.\run.ps1`
 
 ###  Linux / macOS (Bash)
 
-chmod +x ./run.sh
-./run.sh
+`chmod +x ./run.sh`
+`./run.sh`
 
 
 Backend - https://localhost:7013
