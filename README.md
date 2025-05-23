@@ -43,8 +43,8 @@
 
 ###  Linux / macOS (Bash)
 
-`chmod +x ./run.sh
-./run.sh`
+`chmod +x ./run.sh`  
+`./run.sh`
 
 
 Backend - https://localhost:7013
